@@ -1,7 +1,7 @@
-export interface Store {
-  sku: number;
+export interface OnlineStore {
+  id: number;
   name: string;
-  price: number;
-  location: string;
-  isOnline?: boolean;
+  url: number;
+  hasMobileApp: string;
+  Rating?: boolean;
 }
