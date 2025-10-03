@@ -1,1 +1,13 @@
-<p>product-list works!</p>
+<div>
+  <table>
+    <tbody>
+    <tr *ngFor="let product of productList" (click)="selectProduct(product)">
+      <td>{{ product.Product }}</td>
+      <td>{{ product.Store }}</td>
+      <td>{{ product.ProductID }}</td>
+      <td>{{ product.Price }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <app-product-list-item [product]="selectedProduct"></app-product-list-item>
+</div>
