@@ -11,5 +11,6 @@ import { OnlineStore} from '../Shared/store';
   styleUrl: './product-list-item.component.css'
 })
 export class ProductListItemComponent {
+  // Added one-way binding
   @Input() product?: any;
 }
