@@ -1,20 +1,3 @@
-<div>
+
   <h2>All Online Store Listings</h2>
   <app-product-list></app-product-list>
-  <ul class="store-list">
-    <li *ngFor="let store of stores">
-      <div class="store-card">
-        <h3><a href="https://{{ store.url }}" target="_blank">{{ store.name }}</a></h3>
-        <p><strong>URL:</strong> {{ store.url }}</p>
-
-        <p><strong>Mobile App:</strong> {{ store.hasMobileApp ? 'Yes' : 'No' }}</p>
-
-        <p *ngIf="store.Rating">
-          <strong>Rating:</strong> {{ store.Rating }} / 5.0
-        </p>
-
-        <div *ngIf="store.hasMobileApp" class="app-badge">Mobile App Available!</div>
-      </div>
-    </li>
-  </ul>
-</div>
