@@ -1,1 +1,17 @@
+td {
+  border: 2px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
 
+td:hover {
+  background-color: #7e8587;
+}
+
+tr:nth-child(even) {
+  background-color: #ff0000;
+}
+
+tr:nth-child(odd) {
+  background-color: #3491ad;
+}

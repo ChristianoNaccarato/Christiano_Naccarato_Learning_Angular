@@ -3,3 +3,6 @@
   padding: 8px;
   text-align: left;
 }
+ p:hover {
+   background-color: #f1f1f1;
+ }
