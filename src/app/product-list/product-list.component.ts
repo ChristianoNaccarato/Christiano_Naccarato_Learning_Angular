@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { ProductListItemComponent } from '../product-list-item/product-list-item.component';
 import { OnlineStore } from '../Shared/store';
 import { PRODUCTLIST } from '../data/mock-content'; // Import the array
+import { ProductService } from '../services/product.service';
 
 // New interface for products
 export interface Products {
@@ -19,6 +20,21 @@ export interface Products {
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
+
+
+  constructor(private productService: ProductService) {
+
+  }
+
+  ngOnInit() {
+    // Fetch and init our data
+    this.productService.getProducts().subscribe({
+      next: (data: Products[]) => this.productList = data,
+      error: err => console.error('Error fetching products', err),
+      complete: () => console.log('Product data fetch complete!')
+    });
+  }
+
   // Use imported data
   productList = PRODUCTLIST;
   //Catch the onclick event from the html
