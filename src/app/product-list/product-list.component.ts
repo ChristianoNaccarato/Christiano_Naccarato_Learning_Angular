@@ -19,7 +19,7 @@ export interface Products {
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
 
 
   constructor(private productService: ProductService) {
