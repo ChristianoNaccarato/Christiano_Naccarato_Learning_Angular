@@ -1,4 +1,14 @@
 
-  <h2>All Online Store Listings</h2>
-  <app-product-list-item [product]="featuredProduct"></app-product-list-item>
-  <app-product-list></app-product-list>
+<div class="nav-bar">
+  <nav>
+    <a routerLink="/products" routerLinkActive="active">Product List</a>
+    <a routerLink="/modify-product" routerLinkActive="active">Modify Product</a>
+    <a routerLink="/page-not-found" routerLinkActive="active">Page Not Found</a>
+  </nav>
+</div>
+
+<div class="app-container">
+  <h1>{{ title }}</h1>
+
+  <router-outlet></router-outlet>
+</div>

@@ -1,5 +1,5 @@
 import {Component, OnInit, signal} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { OnlineStore} from './Shared/store';
 import {NgIf, NgForOf} from "@angular/common";
 import {ProductListComponent} from './product-list/product-list.component';
@@ -9,7 +9,7 @@ import {ProductService} from './services/product.service';
 
 @Component({
   selector: 'app-root',
-  imports: [NgIf, NgForOf, ProductListComponent, ProductListItemComponent],
+  imports: [NgIf, NgForOf, ProductListComponent, ProductListItemComponent, RouterLinkActive, RouterOutlet, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

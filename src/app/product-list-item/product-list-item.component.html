@@ -4,4 +4,13 @@
   <p><strong>Store:</strong> {{ product.Store }}</p>
   <p><strong>ProductID:</strong> {{ product.ProductID }}</p>
   <p><strong>Price:</strong> {{ product.Price }}</p>
+  <div>
+    <strong>Image:</strong>
+    <img
+      [ngSrc]="product.imageUrl"
+      [alt]="product.Product"
+      width="100"
+      height="100">
+  </div>
 </div>
+

@@ -4,21 +4,23 @@ import { ProductListItemComponent } from '../product-list-item/product-list-item
 import { OnlineStore } from '../Shared/store';
 import { PRODUCTLIST } from '../data/mock-content'; // Import the array
 import { ProductService } from '../services/product.service';
-
+import { NgOptimizedImage} from '@angular/common';
 // New interface for products
 export interface Products {
   Product: string;
   Store: string;
   ProductID: number;
   Price: number;
+  imageUrl: string;
 }
 
 @Component({
   selector: 'app-product-list',
-  imports: [NgForOf, ProductListItemComponent],
+  imports: [NgForOf, ProductListItemComponent, NgOptimizedImage],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
+
 export class ProductListComponent implements OnInit {
 
 
