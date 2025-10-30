@@ -13,6 +13,8 @@ export class ProductService {
 
   }
 
+  // All these methods were already added
+
   // Return all products
   getProducts(): Observable<Products[]> {
     return of(this.products);
