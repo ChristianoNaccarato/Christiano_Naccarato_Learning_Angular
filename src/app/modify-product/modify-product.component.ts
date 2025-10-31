@@ -25,6 +25,7 @@ export class ModifyProductComponent implements OnInit{
     private route: ActivatedRoute,
     private ProductService: ProductService,
     private router: Router
+    // Construct the form group
   ){
     this.productForm = this.fb.group({
       Product: ['', Validators.required],
@@ -34,6 +35,8 @@ export class ModifyProductComponent implements OnInit{
       imageUrl: ['']
     });
   }
+
+  // Gets the id and loads it into the form or it will be a blank form
   ngOnInit() {
   const id = this.route.snapshot.paramMap.get('id');
   if (id) {
@@ -49,6 +52,7 @@ export class ModifyProductComponent implements OnInit{
     this.isEditMode = false;
   }
 }
+  // Updates the form and redirects to products page
   onSubmit(): void {
     if (this.productForm.valid) {
       const productData = this.productForm.value as Products;

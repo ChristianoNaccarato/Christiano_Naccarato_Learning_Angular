@@ -38,15 +38,17 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  // If edit products is clicked it grabs the id then directs to the modify product page
   editProduct(id: number): void {
     this.router.navigate(['/modify-product', id]);
   }
 
+  // If add product is clicked it navigates to the modify product page
   addProduct() {
     this.router.navigate(['/modify-product'])
 }
 
-
+  // If delete product it clicked it grabs the id then runs the deleteProduct method
   deleteProduct(id: number): void {
     this.productService.deleteProduct(id).subscribe(updatedList => {
       this.products = updatedList; // update local list after deletion
