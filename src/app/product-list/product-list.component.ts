@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgOptimizedImage } from '@angular/common';
 import { ProductListItemComponent } from '../product-list-item/product-list-item.component';
-import { OnlineStore } from '../Shared/store';
-import { PRODUCTLIST } from '../data/mock-content'; // Import the array
 import { ProductService } from '../services/product.service';
-import { NgOptimizedImage} from '@angular/common';
-import {ActivatedRoute, Router} from "@angular/router";
-// New interface for products
+import { Router } from "@angular/router";
+
+// Interface for products
 export interface Products {
   Product: string;
   Store: string;
@@ -17,16 +15,14 @@ export interface Products {
 
 @Component({
   selector: 'app-product-list',
-  imports: [NgForOf,
-    ProductListItemComponent,
-    NgOptimizedImage,
-    ],
+  standalone: true,
+  imports: [NgForOf, ProductListItemComponent, NgOptimizedImage],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-
 export class ProductListComponent implements OnInit {
-
+  products: Products[] = [];
+  selectedProduct?: Products;
 
   constructor(
     private productService: ProductService,
@@ -36,21 +32,27 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     // Fetch and init our data
     this.productService.getProducts().subscribe({
-      next: (data: Products[]) => this.productList = data,
+      next: (data: Products[]) => this.products = data,
       error: err => console.error('Error fetching products', err),
       complete: () => console.log('Product data fetch complete!')
     });
   }
 
-  goEdit(): void {
-    this.router.navigate(['/modify-product']);
+  editProduct(id: number): void {
+    this.router.navigate(['/modify-product', id]);
   }
 
-  // Use imported data
-  productList = PRODUCTLIST;
-  //Catch the onclick event from the html
-  selectedProduct?: Products;
-  //function to set which product to display
+  addProduct() {
+    this.router.navigate(['/modify-product'])
+}
+
+
+  deleteProduct(id: number): void {
+    this.productService.deleteProduct(id).subscribe(updatedList => {
+      this.products = updatedList; // update local list after deletion
+    });
+  }
+
   selectProduct(product: Products): void {
     this.selectedProduct = product;
   }

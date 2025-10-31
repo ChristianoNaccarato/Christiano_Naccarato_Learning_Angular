@@ -1,15 +1,27 @@
 <div>
   <table>
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Store</th>
+      <th>ID</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+    </thead>
     <tbody>
-    <tr *ngFor="let product of productList" (click)="selectProduct(product)">
+    <tr *ngFor="let product of products" (click)="selectProduct(product)">
       <td>{{ product.Product }}</td>
       <td>{{ product.Store }}</td>
       <td>{{ product.ProductID }}</td>
       <td>{{ product.Price }}</td>
+      <button (click)="editProduct(product.ProductID)">Edit</button>
+      <td><button (click)="deleteProduct(product.ProductID)">Delete</button></td>
     </tr>
     </tbody>
   </table>
+  <button (click)="addProduct()"> Add </button>
   <app-product-list-item [product]="selectedProduct"></app-product-list-item>
-  <button (click)="goEdit()"> Edit </button>
-  <button> Delete </button>
 </div>
+
+

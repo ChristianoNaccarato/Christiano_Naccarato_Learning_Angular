@@ -15,9 +15,10 @@ import {ProductService} from '../services/product.service';
   templateUrl: './modify-product.component.html',
   styleUrl: './modify-product.component.css'
 })
-export class ModifyProductComponent {
+export class ModifyProductComponent implements OnInit{
   productForm: FormGroup;
   product: Products | undefined;
+  isEditMode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,14 +27,41 @@ export class ModifyProductComponent {
     private router: Router
   ){
     this.productForm = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      url: ['', Validators.required],
-      hasMobileApp: [false],
-      Rating: ['']
+      Product: ['', Validators.required],
+      Store: ['', Validators.required],
+      ProductID: ['', Validators.required],
+      Price: ['', Validators.required],
+      imageUrl: ['']
     });
+  }
+  ngOnInit() {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (id) {
+    this.isEditMode = true;
+    this.ProductService.getProductById(+id).subscribe(product => {
+      if (product) {
+        this.product = product;
+        this.productForm.patchValue(product);
+      }
+    });
+  }else {
+    this.isEditMode = false;
+  }
+}
+  onSubmit(): void {
+    if (this.productForm.valid) {
+      const productData = this.productForm.value as Products;
 
-
+      if (this.isEditMode) {
+        this.ProductService.updateProduct(productData).subscribe(() => {
+          this.router.navigate(['/products']);
+        });
+      } else {
+        this.ProductService.addProduct(productData).subscribe(() => {
+          this.router.navigate(['/products']);
+        });
+      }
+    }
   }
 
 }

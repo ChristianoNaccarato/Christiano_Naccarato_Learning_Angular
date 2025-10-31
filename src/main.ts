@@ -11,6 +11,7 @@ const routes: Routes = [
   {path:'products', component: ProductListComponent},
   {path:'products/:id', component: ProductListItemComponent},
   {path:'modify-product', component: ModifyProductComponent},
+  {path:'modify-product/:id', component: ModifyProductComponent},
   {path:'**', component: PageNotFoundComponent}
 ]
 bootstrapApplication(App, {
