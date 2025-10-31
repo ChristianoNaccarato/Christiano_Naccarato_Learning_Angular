@@ -1,1 +1,35 @@
-<p>modify-product works!</p>
+<form [formGroup]="productForm" >
+
+  <div class="form-group">
+    <label for="id">ID</label>
+    <input type="number" id="id" formControlName="id" />
+  </div>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName=name />
+  </div>
+
+  <div class="form-group">
+    <label for="url">URL</label>
+    <input type="text" id="url" formControlName="url" />
+  </div>
+
+  <div class="form-group">
+    <label for="hasMobileApp">Has Mobile App</label>
+    <input type="checkbox" id="hasMobileApp" formControlName="hasMobileApp" />
+  </div>
+
+  <div class="form-group">
+    <label for="Rating">Rating</label>
+    <input type="number" id="Rating" formControlName="Rating" />
+  </div>
+
+  <button type="button" >Delete</button>
+
+  <button type="button" >Edit</button>
+</form>
+
+
+
+

@@ -5,6 +5,7 @@ import { OnlineStore } from '../Shared/store';
 import { PRODUCTLIST } from '../data/mock-content'; // Import the array
 import { ProductService } from '../services/product.service';
 import { NgOptimizedImage} from '@angular/common';
+import {ActivatedRoute, Router} from "@angular/router";
 // New interface for products
 export interface Products {
   Product: string;
@@ -16,7 +17,10 @@ export interface Products {
 
 @Component({
   selector: 'app-product-list',
-  imports: [NgForOf, ProductListItemComponent, NgOptimizedImage],
+  imports: [NgForOf,
+    ProductListItemComponent,
+    NgOptimizedImage,
+    ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -24,9 +28,10 @@ export interface Products {
 export class ProductListComponent implements OnInit {
 
 
-  constructor(private productService: ProductService) {
-
-  }
+  constructor(
+    private productService: ProductService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     // Fetch and init our data
@@ -35,6 +40,10 @@ export class ProductListComponent implements OnInit {
       error: err => console.error('Error fetching products', err),
       complete: () => console.log('Product data fetch complete!')
     });
+  }
+
+  goEdit(): void {
+    this.router.navigate(['/modify-product']);
   }
 
   // Use imported data
