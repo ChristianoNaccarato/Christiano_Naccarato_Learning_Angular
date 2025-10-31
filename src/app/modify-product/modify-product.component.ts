@@ -40,6 +40,7 @@ export class ModifyProductComponent implements OnInit{
     this.isEditMode = true;
     this.ProductService.getProductById(+id).subscribe(product => {
       if (product) {
+        this.productForm.patchValue(product);
         this.product = product;
         this.productForm.patchValue(product);
       }
