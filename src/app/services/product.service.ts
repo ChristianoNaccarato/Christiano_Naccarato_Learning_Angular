@@ -1,48 +1,56 @@
 import { Injectable } from '@angular/core';
-import { Products } from '../product-list/product-list.component';
-import { PRODUCTLIST } from '../data/mock-content';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { PRODUCTLIST} from '../data/mock-content';
+import {Products} from '../product-list/product-list.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private products :Products[] = PRODUCTLIST;
+  private apiUrl = 'api/products'; // url to web api
+  private products: Products[] = PRODUCTLIST; // Local copy of products for CRUD Operations
 
-  constructor() {
+  constructor(private http: HttpClient) {}
 
+  // Get all products
+  getProducts(): Observable<Products[]> {
+    return this.http.get<Products[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
 
-  // All these methods were already added
-
-  // Return all products
-  getProducts(): Observable<Products[]> {
-    return of(this.products);
+  // Get a single product by ID
+  getProductById(id: number): Observable<Products> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Products>(url).pipe(catchError(this.handleError));
   }
 
   // Add a new product
-  addProduct(newProduct: Products): Observable<Products[]> {
-    this.products.push(newProduct);
-    return of(this.products);
+  addProduct(product: Products): Observable<Products> {
+    product.ProductID = this.generateNewId();
+    return this.http.post<Products>(this.apiUrl, product).pipe(catchError(this.handleError));
   }
 
-  // Update an existing product
-  updateProduct(updatedProduct: Products): Observable<Products[]> {
-    const index = this.products.findIndex(p => p.ProductID === updatedProduct.ProductID);
-    if (index !== -1) {
-      this.products[index] = updatedProduct;
-    }
-    return of(this.products);
+  // Edit an existing product
+  updateProduct(product: Products): Observable<Products> {
+    const url = `${this.apiUrl}/${product.ProductID}`;
+    return this.http.put<Products>(url, product).pipe(catchError(this.handleError));
   }
 
-  deleteProduct(productId: number): Observable<Products[]> {
-    this.products = this.products.filter(p => p.ProductID !== productId);
-    return of(this.products);
+  // Remove a product
+  deleteProduct(id: number): Observable<{}> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete(url).pipe(catchError(this.handleError));
   }
-  // Get a product by ID
-  getProductById(id: number): Observable<Products | undefined> {
-    const product = this.products.find(p => p.ProductID === id);
-    return of(product);
+
+  // Generate a new unique ProductID
+  private generateNewId(): number {
+    return this.products.length > 0
+      ? Math.max(...this.products.map(p => p.ProductID)) + 1 : 1;
+  }
+
+  // Handle server errors
+  private handleError(error: HttpErrorResponse) {
+    console.error('API error:', error);
+    return throwError(() => new Error('Server error, please try again later.'));
   }
 }
-

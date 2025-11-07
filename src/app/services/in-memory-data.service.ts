@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { OnlineStore} from '../Shared/store';
+import { Products} from '../product-list/product-list.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InMemoryDataService implements InMemoryDbService {
-  createDb():{ products: OnlineStore[] } {
+  createDb():{ products: Products[] } {
 
-    const products :OnlineStore[] = [
-      { id: 1, name: 'Wallmart', url: 'Wallmart.com', hasMobileApp: true, Rating: 4.8 },
-      { id: 2, name: 'American Tire', url: 'AmericanTire.com', hasMobileApp: false, Rating: 4.2, },
-      { id: 3, name: 'Forest', url: 'Forest.com', hasMobileApp: true, },
-      { id: 4, name: 'Pet Food', url: 'PetFood.com', hasMobileApp: false, Rating: 4.9 },
-      { id: 5, name: 'Best Clothing', url: 'BestClothing.com', hasMobileApp: true},
-      { id: 6, name: 'Worst Buy', url: 'WorstBuy.com', hasMobileApp: false}
+    const products :Products[] = [
+      { Product: 'Apple', Store: 'Wallmart', ProductID: 1213, Price: 1, imageUrl: 'assets/images/apple.jpg' },// image from: https://www.freepik.com/free-photos-vectors/apple-fruit
+      { Product: 'Tire', Store: 'American Tire', ProductID: 6167, Price: 50, imageUrl: 'assets/images/tire.jpg'},// image from: https://www.istockphoto.com/search/2/image-film?phrase=car+tire
+      { Product: 'Dog food', Store: 'Pet Food', ProductID: 6515, Price: 35, imageUrl: 'assets/images/dog_food.jpg' },// image from: https://stock.adobe.com/ca/search?k=dog+food+bag
+      { Product: 'T-Shirt', Store: 'Best Clothing', ProductID: 4415, Price: 20, imageUrl: 'assets/images/T-shirt.jpg' }// image from: https://cricut.com/en-ca/materials/material-type/infusible-ink/t-shirts/mens-t--shirt-blank-crew-neck/mens-t-shirt-blank-crew-neck.html
     ];
     return { products };
   }
