@@ -11,10 +11,10 @@
     </thead>
     <tbody>
     <tr *ngFor="let product of products" (click)="selectProduct(product)">
-      <td>{{ product.Product }}</td>
-      <td>{{ product.Store }}</td>
+      <td>{{ product.Product | lowercase}}</td>
+      <td>{{ product.Store | uppercase }}</td>
       <td>{{ product.id }}</td>
-      <td>{{ product.Price }}</td>
+      <td>{{ product.Price |currency}}</td>
       <button (click)="editProduct(product.id)">Edit</button>
       <td><button (click)="deleteProduct(product.id)">Delete</button></td>
     </tr>
