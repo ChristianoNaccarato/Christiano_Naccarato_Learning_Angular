@@ -3,7 +3,7 @@
   <p><strong>Product:</strong> {{ product.Product }}</p>
   <p><strong>Store:</strong> {{ product.Store }}</p>
   <p><strong>ProductID:</strong> {{ product.id }}</p>
-  <p><strong>Price:</strong> {{ product.Price }}</p>
+  <p><strong>Price:</strong> {{ product.Price | priceWithTax}}</p>
   <div>
     <strong>Image:</strong>
     <img
