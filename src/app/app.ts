@@ -34,13 +34,15 @@ export class App implements OnInit{
 
   // Get an item from an id number
   ngOnInit(): void {
-    this.productService.getProductById(1213).subscribe({
-      next: (data: Products | undefined) => {
-        this.featuredProduct = data;
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        if (products.length > 0) {
+          this.featuredProduct = products[0];
+        }
       },
-      error: err => console.error('Error fetching product by ID', err),
-      complete: () => console.log('Single product fetch complete!')
+      error: (err) => console.error('Error fetching products', err)
     });
+
   }
 }
 

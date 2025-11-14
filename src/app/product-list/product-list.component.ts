@@ -6,9 +6,9 @@ import { Router } from "@angular/router";
 
 // Interface for products
 export interface Products {
+  id: number;
   Product: string;
   Store: string;
-  ProductID: number;
   Price: number;
   imageUrl: string;
 }
@@ -21,6 +21,7 @@ export interface Products {
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements OnInit {
+
   products: Products[] = [];
   selectedProduct?: Products;
 
@@ -30,9 +31,10 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Fetch and init our data
     this.productService.getProducts().subscribe({
-      next: (data: Products[]) => this.products = data,
+      next: (data: Products[]) => {
+        this.products = data;
+      },
       error: err => console.error('Error fetching products', err),
       complete: () => console.log('Product data fetch complete!')
     });
@@ -43,13 +45,16 @@ export class ProductListComponent implements OnInit {
   }
 
   addProduct() {
-    this.router.navigate(['/modify-product'])
-}
-
+    this.router.navigate(['/modify-product']);
+  }
 
   deleteProduct(id: number): void {
-    this.productService.deleteProduct(id).subscribe(updatedList => {
-      this.products = updatedList; // update local list after deletion
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        // remove product from array manually
+        this.products = this.products.filter(p => p.id !== id);
+      },
+      error: err => console.error("Delete failed:", err)
     });
   }
 
@@ -57,3 +62,4 @@ export class ProductListComponent implements OnInit {
     this.selectedProduct = product;
   }
 }
+

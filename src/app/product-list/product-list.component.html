@@ -13,10 +13,10 @@
     <tr *ngFor="let product of products" (click)="selectProduct(product)">
       <td>{{ product.Product }}</td>
       <td>{{ product.Store }}</td>
-      <td>{{ product.ProductID }}</td>
+      <td>{{ product.id }}</td>
       <td>{{ product.Price }}</td>
-      <button (click)="editProduct(product.ProductID)">Edit</button>
-      <td><button (click)="deleteProduct(product.ProductID)">Delete</button></td>
+      <button (click)="editProduct(product.id)">Edit</button>
+      <td><button (click)="deleteProduct(product.id)">Delete</button></td>
     </tr>
     </tbody>
   </table>

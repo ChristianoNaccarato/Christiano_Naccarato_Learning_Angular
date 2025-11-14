@@ -1,67 +1,75 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NgIf} from "@angular/common";
-import {Products} from '../product-list/product-list.component';
-import {ProductService} from '../services/product.service';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-modify-product',
-  imports: [
-    FormsModule,
-    NgIf,
-    ReactiveFormsModule
-  ],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './modify-product.component.html',
-  styleUrl: './modify-product.component.css'
+  styleUrls: ['./modify-product.component.css']
 })
-export class ModifyProductComponent implements OnInit{
-  productForm: FormGroup;
-  product: Products | undefined;
+export class ModifyProductComponent implements OnInit {
+  productForm!: FormGroup; // FormGroup must be initialized
   isEditMode = false;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private ProductService: ProductService,
-    private router: Router
-  ){
+    private productService: ProductService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
     this.productForm = this.fb.group({
+      id: [0],
       Product: ['', Validators.required],
       Store: ['', Validators.required],
-      ProductID: ['', Validators.required],
-      Price: ['', Validators.required],
+      Price: [0, Validators.required],
       imageUrl: ['']
     });
-  }
-  ngOnInit() {
-  const id = this.route.snapshot.paramMap.get('id');
-  if (id) {
-    this.isEditMode = true;
-    this.ProductService.getProductById(+id).subscribe(product => {
-      if (product) {
-        this.product = product;
-        this.productForm.patchValue(product);
-      }
-    });
-  }else {
-    this.isEditMode = false;
-  }
-}
-  onSubmit(): void {
-    if (this.productForm.valid) {
-      const productData = this.productForm.value as Products;
 
-      if (this.isEditMode) {
-        this.ProductService.updateProduct(productData).subscribe(() => {
-          this.router.navigate(['/products']);
-        });
-      } else {
-        this.ProductService.addProduct(productData).subscribe(() => {
-          this.router.navigate(['/products']);
-        });
-      }
+    const id = this.route.snapshot.params['id'];
+
+    if (id) {
+      this.isEditMode = true;
+
+      this.productService.getProductById(+id).subscribe({
+        next: product => this.productForm.patchValue(product),
+        error: err => {
+          console.error('Failed to load product', err);
+          this.errorMessage = 'Failed to load product data.';
+        }
+      });
     }
   }
 
+
+  onSubmit(): void {
+    if (this.productForm.invalid) return;
+
+    // temporarily enable ProductID so it's included in value
+    this.productForm.get('ProductID')?.enable();
+
+    const productData = this.productForm.value;
+
+    if (this.isEditMode) {
+      this.productService.updateProduct(productData).subscribe({
+        next: () => this.router.navigate(['/products']),
+        error: err => console.error('Update failed', err)
+      });
+    } else {
+      this.productService.addProduct(productData).subscribe({
+        next: () => this.router.navigate(['/products']),
+        error: err => console.error('Add failed', err)
+      });
+    }
+
+    // re-disable it after
+    this.productForm.get('ProductID')?.disable();
+  }
 }
+
