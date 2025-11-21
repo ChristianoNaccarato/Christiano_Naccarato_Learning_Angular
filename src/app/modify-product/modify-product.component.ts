@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { GainFocusDirective } from '../directives/gain-focus.directive';
 
 @Component({
   selector: 'app-modify-product',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, GainFocusDirective],
   templateUrl: './modify-product.component.html',
   styleUrls: ['./modify-product.component.css']
 })

@@ -3,27 +3,27 @@
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
   <div>
     <label>Product:</label>
-    <input type="text" formControlName="Product" />
+    <input appHighlightOnFocus = "yellow" type="text" formControlName="Product" />
   </div>
 
   <div>
     <label>Store:</label>
-    <input type="text" formControlName="Store" />
+    <input appHighlightOnFocus ="red" type="text" formControlName="Store" />
   </div>
 
   <div>
     <label>ProductID:</label>
-    <input type="number" formControlName="id" />
+    <input appHighlightOnFocus type="number" formControlName="id" />
   </div>
 
   <div>
     <label>Price:</label>
-    <input type="number" formControlName="Price" />
+    <input appHighlightOnFocus = "orange" type="number" formControlName="Price" />
   </div>
 
   <div>
     <label>Image URL:</label>
-    <input type="text" formControlName="imageUrl" />
+    <input appHighlightOnFocus = "pink" type="text" formControlName="imageUrl" />
   </div>
 
   <button type="submit">{{ isEditMode ? 'Update' : 'Add' }} Product</button>
