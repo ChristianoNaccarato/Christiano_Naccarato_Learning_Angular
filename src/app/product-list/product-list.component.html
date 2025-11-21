@@ -11,12 +11,12 @@
     </thead>
     <tbody>
     <tr *ngFor="let product of products" (click)="selectProduct(product)">
-      <td>{{ product.Product | lowercase}}</td>
-      <td>{{ product.Store | uppercase }}</td>
-      <td>{{ product.id }}</td>
-      <td>{{ product.Price |currency}}</td>
-      <button (click)="editProduct(product.id)">Edit</button>
-      <td><button (click)="deleteProduct(product.id)">Delete</button></td>
+      <td [appHoverHighlight]="'white'">{{ product.Product | lowercase}}</td>
+      <td [appHoverHighlight]="'white'">{{ product.Store | uppercase }}</td>
+      <td [appHoverHighlight]="'white'">{{ product.id }}</td>
+      <td [appHoverHighlight]="'white'">{{ product.Price |currency}}</td>
+      <button [appHoverHighlight]="'white'" (click)="editProduct(product.id)">Edit</button>
+      <td><button [appHoverHighlight]="'white'" (click)="deleteProduct(product.id)">Delete</button></td>
     </tr>
     </tbody>
   </table>

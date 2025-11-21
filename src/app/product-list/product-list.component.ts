@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import {LowerCasePipe} from '@angular/common';
 import {CurrencyPipe} from '@angular/common';
 import {UpperCasePipe} from '@angular/common';
+import {HoverHighlightDirective} from '../directives/hover-highlight.directive';
 
 // Interface for products
 export interface Products {
@@ -19,7 +20,7 @@ export interface Products {
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [NgForOf, ProductListItemComponent, NgOptimizedImage, LowerCasePipe, CurrencyPipe, UpperCasePipe],
+  imports: [NgForOf, ProductListItemComponent, NgOptimizedImage, LowerCasePipe, CurrencyPipe, UpperCasePipe, HoverHighlightDirective],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
